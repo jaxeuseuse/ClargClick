@@ -1,4 +1,4 @@
-from app import app  # Import your Flask app instance from app.py
+from app import app  # Ensure this matches your actual Flask app structure
 
-if __name__ == "__main__":
-    app.run()
+if __name__ != "__main__":
+    application = app  # Many WSGI servers look for `application`
