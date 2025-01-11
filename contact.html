@@ -1,0 +1,80 @@
+{% extends "layout.html" %}
+
+{% block title %}
+Contact
+{% endblock %}
+
+{% block main %}
+<form action="/secret_clarg" method="POST">
+    <button id="secret_clarg_button"></button>
+</form>
+<div class="container">
+    <h2>Contact</h2>
+    <form id="contactForm">
+        <input type="text" name="name" placeholder="Your Name" required>
+        <input type="email" name="email" placeholder="Your Email" required>
+        <textarea name="message" placeholder="Your Message" rows="5" required></textarea>
+        <button type="submit">Send</button>
+    </form>
+    <div id="responseMessage"></div>
+</div>
+
+<style>
+    body {
+        font-family: Arial, sans-serif;
+    }
+    .container {
+        max-width: 60vw;
+        margin: auto;
+        padding: 5vw;
+    }
+    input, textarea {
+        width: 100%;
+        padding: 1.5vw;
+        margin: 0.5vw 0;
+        font-size: 1em;
+    }
+    button {
+        padding: 1em;
+        background-color: #4CAF50;
+        color: white;
+        border: none;
+        cursor: pointer;
+        font-size: 1em;
+    }
+    #responseMessage {
+        margin-top: 1vw;
+        font-size: 1em;
+    }
+    #secret_clarg_button {
+        color: white;
+        background-color: white;
+        border: none;
+        width: 3.2%;
+        margin: auto;
+        position: absolute;
+        top: 1vh;
+        left: 1vw;
+    }
+</style>
+
+<script>
+    $(document).ready(function() {
+        $("#contactForm").bind("submit", function() {
+            $.ajax({
+                type: "POST",
+                cache: false,
+                url: "https://script.google.com/macros/s/AKfycbzJX1hCjkbq3SnkG77XQS6hPVkX2OLEGiw4KIhCsihmya23DSiIBeWghd_aj17cQa7s1Q/exec",  // Replace with your script URL
+                data: $(this).serializeArray(),
+                success: function (data) {  // If 200 OK
+                    $("#contactForm")[0].reset();  // Clear the form
+                    $("#responseMessage").text("Thank you for contacting us!");
+                },
+                error: function (xhr, text, error) {  // If 40x or 50x; errors
+                }
+            });
+            return false; // Prevent default form submission
+        });
+    });
+</script>
+{% endblock %}
